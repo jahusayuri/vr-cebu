@@ -1,0 +1,24 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav class="locations" #sidenav mode="side" [(opened)]="opened">
+    <mat-list>
+          <mat-list-item *ngFor="let location of locations"
+                         [class.selected]="location === selectedLocation"
+                         (click)="onSelect(location)"
+                         set-image="on: click; target: #image-360; src: ${{selectedLocation.location_link}};">
+            {{location.location_name}}</mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content *ngIf="selectedLocation">
+    <a-scene>
+      <img id="location" [src]="selectedLocation.location_link" alt="location_link">
+      <button style="top: 50%" mat-fab color="primary" (click)="sidenav.toggle()"><mat-icon *ngIf="!opened">arrow_forward_ios</mat-icon><mat-icon *ngIf="opened">arrow_back_ios</mat-icon></button>
+
+      <a-sky id="image-360" src="#location" rotation="0 -130 0"></a-sky>
+
+      <a-text font="kelsonsans" value="test" width="6" position="-2.5 0.25 -1.5"
+              rotation="0 15 0"></a-text>
+    </a-scene>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
